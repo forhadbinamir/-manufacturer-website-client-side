@@ -1,31 +1,31 @@
 import React, { useEffect } from 'react';
-import './Login.css'
 import { FaUserAlt } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { BsGoogle } from "react-icons/bs";
+import { MdEmail } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from 'react-router-dom';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../Firebase.init';
-const Login = () => {
+const Register = () => {
     const navigate = useNavigate()
     const [
-        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword,
         user,
         loading,
         error,
-    ] = useSignInWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth);
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
-        signInWithEmailAndPassword(data.email, data.password)
+        createUserWithEmailAndPassword(data.email, data.password)
 
         console.log(data)
     };
     useEffect(() => {
         if (user || googleUser) {
-            navigate('/home')
+            navigate('/login')
         }
     }, [user, googleUser, navigate])
 
@@ -40,10 +40,25 @@ const Login = () => {
         <div class="container">
             <div class="screen">
                 <div class="screen__content">
-                    <h2 className='font-bold text-2xl text-center pt-10 mb-[-100px]'>Login </h2>
+                    <h2 className='font-bold text-2xl text-center pt-10 mb-[-150px]'>Sign Up </h2>
                     <form onSubmit={handleSubmit(onSubmit)} class="login">
                         <div class="login__field">
                             <i class="login__icon fas fa-user"><FaUserAlt /></i>
+                            <input {...register("name", {
+                                required: {
+                                    value: true,
+                                    message: 'Name is Required'
+                                },
+                            })} type="text" class="login__input" placeholder="Your Name" />
+                            <label className="label">
+                                {errors.name?.type === 'required' && <span className="label-text-alt text-red-500">{errors.name.message}</span>}
+                                {errors.name?.type === 'pattern' && <span className="label-text-alt text-red-500">{errors.name.message}</span>}
+
+                            </label>
+                        </div>
+
+                        <div class="login__field">
+                            <i class="login__icon fas fa-user"><MdEmail /></i>
                             <input {...register("email", {
                                 required: {
                                     value: true,
@@ -80,16 +95,16 @@ const Login = () => {
                             </label>
                         </div>
                         <button type='submit' class="button login__submit">
-                            <span class="button__text">Log In Now</span>
+                            <span class="button__text">Register</span>
                             <i class="button__icon fas fa-chevron-right"></i>
                         </button>
                     </form>
                     {errorText}
-                    <p className='pl-10'><Link className='text-yellow-400 pr-20' to={`/register`}>Sign Up</Link></p>
-                    <p className='pl-10'><Link className='text-yellow-400 pr-20' to=''>Forget Password</Link></p>
+                    <p className='pl-10'><Link to={`/login`}>Already have an account <span className='text-yellow-400'> <br /> Login</span></Link></p>
+
 
                     <div class="social-login">
-                        <h3 className='font-bold mt-3'>Log in with Google</h3>
+                        <h3 className='font-bold mt-10'>Log in with Google</h3>
                         <div class="social-icons">
                             <a onClick={() => signInWithGoogle()} href="#" class="social-login__icon"> <BsGoogle /></a>
                         </div>
@@ -109,4 +124,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;
