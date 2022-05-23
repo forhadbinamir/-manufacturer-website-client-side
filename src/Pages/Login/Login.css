@@ -7,9 +7,9 @@
     font-family: Raleway, sans-serif;
 }
 
-/* body {
+.bg__login__form {
     background: linear-gradient(90deg, #C7C5F4, #776BCC);
-} */
+}
 
 .container {
     display: flex;

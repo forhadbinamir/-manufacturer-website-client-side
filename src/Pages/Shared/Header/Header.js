@@ -1,21 +1,27 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/logo/manufacturer_logo.png'
+import auth from '../../Firebase.init';
 const Header = () => {
+    const [user] = useAuthState(auth)
+    const logOut = () => {
+        signOut(auth)
+    }
 
     const menuItem = <>
         <li><Link to='/home'>Home</Link></li>
         <li><Link to='/review'>Review</Link></li>
         <li><Link to='/about'>About</Link></li>
         <li><Link to='/contact'>Contact</Link></li>
-        <li><Link to='/login'>Login</Link></li>
-        {/* {
-        user && <li><Link to='/dashboard'>Dashboard</Link></li>
-    }
-    <li>{user ? <button onClick={() => logOut()} className="btn btn-active btn-ghost">Sing Out</button> : <Link to='/login'>Login</Link>}</li> */}
+        {
+            user && <li><Link to='/dashboard'>Dashboard</Link></li>
+        }
+        <li>{user ? <button onClick={() => logOut()} className="btn btn-active btn-ghost">Sing Out</button> : <Link to='/login'>Login</Link>}</li>
     </>
     return (
-        <div class="navbar bg-base-100">
+        <div class="navbar sticky bg-base-100">
             <div class="navbar-start">
                 <div class="dropdown">
                     <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -38,7 +44,7 @@ const Header = () => {
                 </ul>
             </div>
             <div class="navbar-end lg:hidden">
-                <a class="btn">Get started</a>
+                <label for="dashboard" class="btn btn-primary drawer-button lg:hidden">Dashboard</label>
             </div>
         </div>
     );
