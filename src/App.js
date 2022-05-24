@@ -5,7 +5,10 @@ import Home from "./Pages/Home/Home";
 import RequireAuth from "./Pages/Hooks/RequireAuth";
 import Login from "./Pages/Login/Login";
 import NotFound from "./Pages/NotFound/NotFound";
+import Purchase from "./Pages/Purchase/Purchase";
+import UserInfo from "./Pages/Purchase/UserInfo";
 import Register from "./Pages/Register/Register";
+import Footer from "./Pages/Shared/Footer/Footer";
 import Header from "./Pages/Shared/Header/Header";
 
 
@@ -24,10 +27,17 @@ function App() {
           <Route index element={<ManageUsers></ManageUsers>}></Route>
         </Route>
 
+        <Route path='/purchase/:id' element={<RequireAuth>
+          <Purchase></Purchase>
+        </RequireAuth>}></Route>
+        <Route path='/userinfo/:id' element={<RequireAuth>
+          <UserInfo></UserInfo>
+        </RequireAuth>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/register' element={<Register></Register>}></Route>
         <Route path='*' element={<NotFound></NotFound>}></Route>
       </Routes>
+      <Footer></Footer>
 
     </div>
   );

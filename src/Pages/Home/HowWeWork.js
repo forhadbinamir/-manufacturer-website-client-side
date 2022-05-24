@@ -21,7 +21,7 @@ const HowWeWork = () => {
         }
     ]
     return (
-        <div className='bg-white py-20 '>
+        <div className='bg-white px-8 py-20 '>
             <h1 className=" p-5 text-5xl font-bold text-accent text-center">How we Work</h1>
 
             <div className='grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 p-5'>

@@ -6,8 +6,8 @@ import bgcontact from '../../assets/capabilities/dots.png'
 const Contact = () => {
     return (
         <div className="min-h-screen py-10">
-            <div className="hero-content flex lg:flex-row-reverse">
-                <div className="card flex-shrink-0 w-full basis-1/2 shadow-2xl bg-base-100">
+            <div className="hero-content flex-col-reverse lg:flex-row-reverse">
+                <div className="card flex-shrink-0 w-full ml-8 basis-1/2 shadow-2xl bg-base-100">
                     <div className="card-body bg-white">
                         <div className="flex justify-evenly">
                             <div className="">
@@ -43,7 +43,7 @@ const Contact = () => {
                         </div>
                     </div>
                 </div>
-                <div style={{ backgroundImage: `url(${bgcontact})`, backgroundPosition: 'right', backgroundRepeat: 'no-repeat', backgroundSize: 'right', }} className="text-center p-10 lg:text-left basis-1/2">
+                <div style={{ backgroundImage: `url(${bgcontact})`, backgroundPosition: 'right', backgroundRepeat: 'no-repeat', backgroundSize: 'right', }} className="text-center p-10 lg:text-left pr-8 basis-1/2">
                     <h1 className="text-4xl font-bold text-accent">Call Us or Fill the Form</h1>
                     <div className='flex items-center py-5'>
                         <i className='text-accent mr-2'><ImMobile /></i>

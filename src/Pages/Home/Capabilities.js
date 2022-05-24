@@ -4,7 +4,7 @@ import signature from '../../assets/capabilities/John_McCain_Signature-150x86.pn
 const Capabilities = () => {
     return (
         <div className="hero min-h-screen bg-white">
-            <div className="hero-content flex-col lg:flex-row">
+            <div className="hero-content flex-col-reverse lg:flex-row">
                 <div className='basis-1/2'>
                     <img src={capabilities} className="rounded-lg shadow-2xl" />
                 </div>

@@ -30,4 +30,9 @@ module.exports = {
     ],
   },
   plugins: [require("daisyui")],
+  variants: {
+    extend: {
+      visibility: ['group-hover'],
+    },
+  }
 }

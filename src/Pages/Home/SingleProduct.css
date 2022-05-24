@@ -1,0 +1,13 @@
+#hover-apply:hover #hover-effect {
+    display: block;
+}
+
+#hover-apply:hover {
+    transform: translateY(-15px);
+    transition: ease-out 0.3s;
+}
+
+.right-array:hover {
+    display: block;
+    padding-right: 5px;
+}

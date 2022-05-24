@@ -1,0 +1,8 @@
+.right-array {
+    display: none;
+}
+
+.right-array:hover {
+    display: block;
+    padding-right: 5px;
+}
