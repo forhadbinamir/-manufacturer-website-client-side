@@ -45,6 +45,7 @@ const UserInfo = () => {
         event.preventDefault()
         const quantity = event.target.quantity.value
         console.log(quantity)
+
     }
     return (
         <div className='flex justify-evenly items-center'>
