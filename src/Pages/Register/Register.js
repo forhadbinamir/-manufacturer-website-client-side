@@ -9,10 +9,11 @@ import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-fi
 import auth from '../Firebase.init';
 import Loading from '../Hooks/Loading';
 import { sendEmailVerification } from 'firebase/auth';
+import useToken from '../Hooks/useToken';
 const Register = () => {
-
     const location = useLocation()
     const navigate = useNavigate()
+
     const [
         createUserWithEmailAndPassword,
         user,
@@ -20,6 +21,7 @@ const Register = () => {
         error,
     ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
+    const [token] = useToken(user || googleUser)
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async (data) => {
@@ -31,10 +33,10 @@ const Register = () => {
     let from = location.state?.from?.pathname || "/";
 
     useEffect(() => {
-        if (user || googleUser) {
+        if (token) {
             navigate(from, { replace: true });
         }
-    }, [user, googleUser, from, navigate])
+    }, [token, from, navigate])
 
     if (loading || googleLoading) {
         return <Loading></Loading>

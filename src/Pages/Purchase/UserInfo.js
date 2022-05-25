@@ -1,21 +1,42 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useParams } from 'react-router-dom';
 import auth from '../Firebase.init';
-
+import { AiOutlinePlus } from 'react-icons/ai'
+import { AiOutlineMinus } from 'react-icons/ai'
 const UserInfo = () => {
     const { id } = useParams()
     const [user] = useAuthState(auth)
     const [products, setProductions] = useState({})
+    const [count, setCount] = useState({
+        minimum: '20',
+        cost: '14',
+        name: 'abdullah'
+    })
     useEffect(() => {
-        fetch(`http://localhost:5001/production/${id}`)
+        fetch(`http://localhost:5001/production/${id}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem("accessToken")}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 setProductions(data)
-                console.log(data)
-
             })
-    }, [id])
+    }, [products, id])
+    const handleInitialValue = e => {
+        const { minimum, ...rest } = count
+        const newQuantity = e.target.value
+
+        const updateQuantity = { minimum: newQuantity }
+        setCount(updateQuantity)
+        console.log("u", updateQuantity)
+        console.log(minimum, rest)
+        console.log("c", count)
+
+
+
+    }
     const handleOrderDeliver = event => {
         event.preventDefault()
 
@@ -24,28 +45,79 @@ const UserInfo = () => {
             email: user.email,
             productName: products.name,
             price: products.price,
+            minimum: products.minimum,
             quantity: products.quantity,
             phone: event.target.phone.value
         }
 
-        fetch('http://localhost:5001/orders', {
+        fetch(`http://localhost:5001/orders/${user.email}`, {
             method: 'POST',
             headers: {
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`,
                 'content-type': 'application/json'
             },
             body: JSON.stringify(orderInfo)
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                console.log("order", data)
+                if (data.acknowledged) {
+                    const newQuantity = event.target.quantity.value
+                    const updateQuantity = parseInt(products.quantity) - parseInt(newQuantity)
+                    fetch(`http://localhost:5001/update/${products._id}`, {
+                        method: 'PATCH',
+                        headers: {
+                            "content-type": "application/json"
+                        },
+                        body: JSON.stringify({ quantity: updateQuantity })
+                    })
+                        .then(res => res.json())
+                        .then(data => console.log("update", data))
+                }
             })
     }
 
-    const handleQuantity = (event) => {
+    const handlePlusQuantity = (event) => {
         event.preventDefault()
-        const quantity = event.target.quantity.value
-        console.log(quantity)
+        const previousQuantity = parseInt(products.quantity)
+        const quantity = parseInt(event.target.quantity.value)
+        const updateQuantity = quantity + previousQuantity
+        // console.log(quantity)
+        event.target.reset()
 
+        fetch(`http://localhost:5001/update/${id}`, {
+            method: 'PUT',
+            headers: {
+                "content-type": 'application/json'
+            },
+            body: JSON.stringify({ quantity: updateQuantity })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+            })
+
+    }
+
+    const handleMinusQuantity = event => {
+        event.preventDefault()
+        const previousQuantity = parseInt(products.quantity)
+        const quantity = parseInt(event.target.quantity.value)
+        const updateQuantity = quantity - previousQuantity
+        // console.log(quantity)
+        event.target.reset()
+
+        fetch(`http://localhost:5001/update/${id}`, {
+            method: 'PUT',
+            headers: {
+                "content-type": 'application/json'
+            },
+            body: JSON.stringify({ quantity: updateQuantity })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+            })
     }
     return (
         <div className='flex justify-evenly items-center'>
@@ -71,7 +143,7 @@ const UserInfo = () => {
                             <div className='flex justify-between'>
                                 <div>
                                     <label className='text-accent' htmlFor="">Quantity</label>
-                                    <input className='mb-2 p-3 border rounded-lg  w-full' type="text" value={products?.quantity} readOnly />
+                                    <input className='mb-2 p-3 border rounded-lg  w-full' name="quantity" type="text" onChange={handleInitialValue} value={count.minimum} />
                                 </div>
                                 <div>
                                     <label htmlFor="">Price</label>
@@ -95,9 +167,15 @@ const UserInfo = () => {
                 </div>
             </div>
             <div className='bg-accent rounded p-20'>
-                <form onSubmit={handleQuantity} >
-                    <input className='p-3  outline-none ' type="text" name='quantity' />
-                    <button className='text-white p-3 bg-purple-600 uppercase font-bold '>Add Quantity</button>
+                <form onSubmit={handlePlusQuantity} className='flex mb-2' >
+                    <input className='p-2  outline-none ' type="text" name='quantity' />
+                    <button className='text-white p-3 bg-purple-600 uppercase font-bold '><AiOutlinePlus /></button>
+                </form>
+
+
+                <form onSubmit={handleMinusQuantity} className='flex' >
+                    <input className='p-2  outline-none ' type="text" name='quantity' />
+                    <button className='text-white p-3 bg-purple-600 uppercase font-bold '><AiOutlineMinus /></button>
                 </form>
             </div>
         </div>

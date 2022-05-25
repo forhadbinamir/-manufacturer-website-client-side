@@ -11,14 +11,14 @@ const Header = () => {
     }
 
     const menuItem = <>
-        <li><Link to='/home'>Home</Link></li>
-        <li><Link to='/review'>Review</Link></li>
-        <li><Link to='/about'>About</Link></li>
-        <li><Link to='/contact'>Contact</Link></li>
+        <li><Link className='hover:translate-x-2 duration-300' to='/home'>Home</Link></li>
+        <li><Link className='hover:translate-x-2 duration-300' to='/review'>Review</Link></li>
+        <li><Link className='hover:translate-x-2 duration-300' to='/about'>About</Link></li>
+        <li><Link className='hover:translate-x-2 duration-300' to='/contact'>Contact</Link></li>
         {
-            user && <li><Link to='/dashboard'>Dashboard</Link></li>
+            user && <li><Link className='hover:translate-x-2 duration-300' to='/dashboard'>Dashboard</Link></li>
         }
-        <li>{user ? <button onClick={() => logOut()} className="btn btn-active btn-ghost">Sing Out</button> : <Link to='/login'>Login</Link>}</li>
+        <li>{user ? <button onClick={() => logOut()} className="btn btn-active btn-ghost">Sign Out</button> : <Link to='/login'>Login</Link>}</li>
     </>
     return (
         <div className="navbar sticky bg-base-100">

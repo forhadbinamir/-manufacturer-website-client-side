@@ -8,6 +8,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../Firebase.init';
 import Loading from '../Hooks/Loading';
+import useToken from '../Hooks/useToken';
 const Login = () => {
     const navigate = useNavigate()
     const location = useLocation()
@@ -27,7 +28,7 @@ const Login = () => {
     const onSubmit = data => {
         signInWithEmailAndPassword(data.email, data.password)
 
-        console.log(data)
+
     };
     const handleResetPassword = async () => {
         const email = getValues("email")
@@ -40,12 +41,12 @@ const Login = () => {
         }
     }
     let from = location.state?.from?.pathname || "/";
-
+    const [token] = useToken(user || googleUser)
     useEffect(() => {
-        if (user || googleUser) {
+        if (token) {
             navigate(from, { replace: true });
         }
-    }, [user, googleUser, from, navigate])
+    }, [token, from, navigate])
 
     if (loading || googleLoading) {
         return <Loading></Loading>
