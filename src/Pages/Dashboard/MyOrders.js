@@ -10,7 +10,6 @@ const MyOrders = () => {
     const navigate = useNavigate()
     const [user] = useAuthState(auth)
     const [myOrders, setMyOrders] = useState([])
-    const { _id } = myOrders
     useEffect(() => {
         const email = user.email
         const url = `http://localhost:5001/myorder?email=${email}`
@@ -37,25 +36,25 @@ const MyOrders = () => {
 
     }, [user])
     const handleDeleteOrder = id => {
-        const deleteUser =
 
-            fetch(`http://localhost:5001/myorder/${id}`, {
-                method: "DELETE",
+
+        fetch(`http://localhost:5001/myorder/${id}`, {
+            method: "DELETE",
+            headers: {
                 headers: {
-                    headers: {
-                        authorization: `Bearer ${localStorage.getItem('accessToken')}`
-                    }
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.acknowledged === true) {
+                    toast.success("Your order delete successfully")
+                    const remaining = myOrders.filter(order => order._id !== id)
+                    setMyOrders(remaining)
                 }
             })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data)
-                    if (data.acknowledged === true) {
-                        toast.success("Your order delete successfully")
-                        const remaining = myOrders.filter(order => order._id !== id)
-                        setMyOrders(remaining)
-                    }
-                })
     }
     return (
         <>

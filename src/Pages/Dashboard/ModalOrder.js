@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const ModalOrder = ({ supplier, handleDeleteOrder, index }) => {
-    const { productName, price, myOrder } = supplier
+    const { productName, price, myOrder, _id } = supplier
     return (
         <>
             <tr>
@@ -10,7 +10,7 @@ const ModalOrder = ({ supplier, handleDeleteOrder, index }) => {
                 <td>{productName}</td>
                 <td>{price}</td>
                 <td>{myOrder}</td>
-                <td><button className='btn btn-xs bg-green-500'> <Link to="/dashboard/payment">Pay</Link> </button></td>
+                <td><button className='btn btn-xs bg-green-500'> <Link to={`/dashboard/payment/${_id}`}>Pay</Link> </button></td>
                 <td><label for="my-modal-6" class="btn btn-xs">Delete!</label></td>
             </tr>
             <input type="checkbox" id="my-modal-6" class="modal-toggle" />
