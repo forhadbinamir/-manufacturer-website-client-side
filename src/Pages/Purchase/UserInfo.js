@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import auth from '../Firebase.init';
 import { AiOutlinePlus } from 'react-icons/ai'
 import { AiOutlineMinus } from 'react-icons/ai'
@@ -208,6 +208,7 @@ const UserInfo = () => {
 
                             <input disabled={!products.minimum <= 20 ? false : true} className='w-full bg-purple-600 rounded-lg p-3 text-white font-bold uppercase' type="submit" value="Order" />
                         </form>
+                        <button className='btn btn-link'><Link to='/dashboard/orders'>Go to Order List</Link></button>
                     </div>
                 </div>
             </div>

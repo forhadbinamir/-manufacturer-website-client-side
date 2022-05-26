@@ -6,6 +6,7 @@ import ManageUsers from "./Pages/Dashboard/ManageUsers";
 import MyOrders from "./Pages/Dashboard/MyOrders";
 import MyPortfolio from "./Pages/Dashboard/MyPortfolio";
 import MyReviews from "./Pages/Dashboard/MyReviews";
+import Payment from "./Pages/Dashboard/Payment";
 import Home from "./Pages/Home/Home";
 import RequireAuth from "./Pages/Hooks/RequireAuth";
 import Login from "./Pages/Login/Login";
@@ -33,6 +34,7 @@ function App() {
           <Route path="orders" element={<MyOrders></MyOrders>}></Route>
           <Route path="reviews" element={<MyReviews></MyReviews>}></Route>
           <Route path="portfolio" element={<MyPortfolio></MyPortfolio>}></Route>
+          <Route path="payment" element={<Payment></Payment>}></Route>
         </Route>
 
         <Route path='/purchase/:id' element={<RequireAuth>

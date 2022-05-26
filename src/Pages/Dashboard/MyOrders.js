@@ -1,63 +1,95 @@
-import axios from 'axios';
-import { signOut } from 'firebase/auth';
-import React, { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import auth from '../../Hooks/Firebase.init';
+import { signOut } from "firebase/auth";
+import { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import auth from "../Firebase.init";
+import ModalOrder from "./ModalOrder";
+import './MyOrder.css'
 const MyOrders = () => {
     const navigate = useNavigate()
     const [user] = useAuthState(auth)
-    const [mySuppliers, setMySuppliers] = useState([])
+    const [myOrders, setMyOrders] = useState([])
+    const { _id } = myOrders
     useEffect(() => {
         const email = user.email
-        const getMySuppliers = async () => {
-            const url = `http://localhost:5001/myorder?email=${email}`
-            try {
-                const { data } = await axios.get(url, {
+        const url = `http://localhost:5001/myorder?email=${email}`
+        try {
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    setMyOrders(data)
+                })
+        }
+        catch (error) {
+            toast(error.message)
+            if (error.response.status === 401 || error.response.status === 403) {
+                signOut(auth)
+                navigate('/login')
+            }
+        }
+
+    }, [user])
+    const handleDeleteOrder = id => {
+        const deleteUser =
+
+            fetch(`http://localhost:5001/myorder/${id}`, {
+                method: "DELETE",
+                headers: {
                     headers: {
                         authorization: `Bearer ${localStorage.getItem('accessToken')}`
                     }
-                })
-                setMySuppliers(data)
-            }
-            catch (error) {
-                toast(error.message)
-                if (error.response.status === 401 || error.response.status === 403) {
-                    signOut(auth)
-                    navigate('/login')
                 }
-            }
-        }
-        getMySuppliers()
-    }, [user])
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    if (data.acknowledged === true) {
+                        toast.success("Your order delete successfully")
+                        const remaining = myOrders.filter(order => order._id !== id)
+                        setMyOrders(remaining)
+                    }
+                })
+    }
     return (
-        <div className='container overflow-x-auto'>
-            <h2 className='text-center m-3'>Your Order Suppliers list : {mySuppliers.length}</h2>
-            <table className='m-5'>
-                <thead>
-                    <tr>
-                        <th>Lenth</th>
-                        <th>Id</th>
-                        <th>Email</th>
-                        <th>Supplier Name</th>
-                        <th>Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        mySuppliers.map(supplier => <tr key={supplier._id}>
-                            <td>{mySuppliers.indexOf(supplier) + 1}</td>
-                            <td>{supplier._id}</td>
-                            <td>{supplier.email}</td>
-                            <td>{supplier.supplierName}</td>
-                            <td>{supplier.price}</td>
+        <>
+            <h2 className='text-center m-3 font-bold '>Your Order list : {myOrders.length}</h2>
+            <div className='overflow-x-auto'>
+
+                <table className='border w-full'>
+                    <thead className="">
+                        <tr className="border">
+                            <th>Lenth</th>
+                            <th>Supplier Name</th>
+                            <th>Price</th>
+                            <th>My Order</th>
+                            <th>Payment</th>
+                            <th>Delete</th>
                         </tr>
+                    </thead>
+
+                    {
+                        myOrders.map((supplier, index) => <ModalOrder
+                            key={supplier._id}
+                            supplier={supplier}
+                            index={index}
+                            handleDeleteOrder={handleDeleteOrder}
+                        ></ModalOrder>
+
                         )
                     }
-                </tbody>
-            </table>
-        </div>
+
+                </table>
+
+
+            </div>
+        </>
     );
 };
 
