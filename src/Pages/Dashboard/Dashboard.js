@@ -7,16 +7,19 @@ const Dashboard = () => {
             <div className="drawer drawer-mobile">
                 <input id="dashboard" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content">
-                    <h2 className='text-3xl text-center font-bold text-primary'>Dashboard Panel</h2>
+                    <h2 className='text-3xl text-center font-bold text-primary p-3'>Dashboard Panel</h2>
                     <Outlet />
 
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="dashboard" className="drawer-overlay"></label>
-                    <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
+                    <ul className="menu p-4 overflow-y-auto w-60 bg-white text-base-content">
                         {/* <!-- Sidebar content here --> */}
-                        <li><Link to='/dashboard'>Manage Users </Link></li>
-                        <li><Link to='/dashboard/myorders'>My Orders </Link></li>
+                        <li className='hover:translate-x-2 duration-300'><Link to='/dashboard'>Manage Users </Link></li>
+                        <li className='hover:translate-x-2 duration-300'><Link to='/dashboard/orders'>My Orders </Link></li>
+                        <li className='hover:translate-x-2 duration-300'><Link to='/dashboard/reviews'>My Reviews </Link></li>
+                        <li className='hover:translate-x-2 duration-300'><Link to='/dashboard/portfolio'>My Portfolio </Link></li>
+
                     </ul>
 
                 </div>

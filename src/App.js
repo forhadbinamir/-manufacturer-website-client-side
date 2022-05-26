@@ -1,7 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import ManageUsers from "./Pages/Dashboard/ManageUsers";
+import MyOrders from "./Pages/Dashboard/MyOrders";
+import MyPortfolio from "./Pages/Dashboard/MyPortfolio";
+import MyReviews from "./Pages/Dashboard/MyReviews";
 import Home from "./Pages/Home/Home";
 import RequireAuth from "./Pages/Hooks/RequireAuth";
 import Login from "./Pages/Login/Login";
@@ -26,6 +30,9 @@ function App() {
           </RequireAuth>}
         >
           <Route index element={<ManageUsers></ManageUsers>}></Route>
+          <Route path="orders" element={<MyOrders></MyOrders>}></Route>
+          <Route path="reviews" element={<MyReviews></MyReviews>}></Route>
+          <Route path="portfolio" element={<MyPortfolio></MyPortfolio>}></Route>
         </Route>
 
         <Route path='/purchase/:id' element={<RequireAuth>

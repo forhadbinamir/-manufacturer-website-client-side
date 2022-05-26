@@ -21,7 +21,7 @@ const Header = () => {
         <li>{user ? <button onClick={() => logOut()} className="btn btn-active btn-ghost">Sign Out</button> : <Link to='/login'>Login</Link>}</li>
     </>
     return (
-        <div className="navbar sticky bg-base-100">
+        <div className="navbar sticky bg-primary text-white">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex="0" className="btn btn-ghost lg:hidden">
@@ -37,7 +37,7 @@ const Header = () => {
                 <Link to="/" className="btn btn-ghost normal-case text-xl w-32"><img src={logo} alt="" /></Link>
             </div>
             <div className="navbar-end hidden lg:flex">
-                <ul className="menu menu-horizontal p-0">
+                <ul className="menu menu-horizontal  p-0">
                     {
                         menuItem
                     }

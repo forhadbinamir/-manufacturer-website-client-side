@@ -8,8 +8,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../Firebase.init';
 import Loading from '../Hooks/Loading';
-import { sendEmailVerification } from 'firebase/auth';
 import useToken from '../Hooks/useToken';
+import { toast } from 'react-toastify';
 const Register = () => {
     const location = useLocation()
     const navigate = useNavigate()
@@ -26,8 +26,7 @@ const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async (data) => {
         await createUserWithEmailAndPassword(data.email, data.password)
-        await sendEmailVerification()
-        alert('send verify email')
+        toast('send verify email')
         console.log(data)
     };
     let from = location.state?.from?.pathname || "/";

@@ -9,6 +9,7 @@ import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWith
 import auth from '../Firebase.init';
 import Loading from '../Hooks/Loading';
 import useToken from '../Hooks/useToken';
+import { toast } from 'react-toastify';
 const Login = () => {
     const navigate = useNavigate()
     const location = useLocation()
@@ -34,10 +35,10 @@ const Login = () => {
         const email = getValues("email")
         await sendPasswordResetEmail(email);
         if (!email) {
-            alert('Please Enter your valid email')
+            toast('Please Enter your valid email')
         } else {
 
-            alert('Reset password Sent your email');
+            toast('Reset password Sent your email');
         }
     }
     let from = location.state?.from?.pathname || "/";
