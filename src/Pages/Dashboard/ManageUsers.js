@@ -1,19 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import Loading from '../Hooks/Loading';
+import AllUsers from './AllUsers';
 
 const ManageUsers = () => {
-    const [productions, setProductions] = useState([])
-    useEffect(() => {
-        fetch(`http://localhost:5001/production`, {
-            method: 'GET',
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+    const navigate = useNavigate()
+    const { data: users, isLoading, refetch } = useQuery('user', () => fetch(`http://localhost:5001/user`, {
+        method: 'GET',
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+        }
+    })
+        .then(res => {
+            if (res.status === 401 || res.status === 403) {
+                navigate('/login')
             }
+            return res.json()
         })
-            .then(res => res.json())
-            .then(data => {
-                setProductions(data)
-            })
-    }, [])
+    )
+    if (isLoading) {
+        return <Loading />
+    }
 
     return (
         <div>
@@ -24,29 +32,21 @@ const ManageUsers = () => {
                     <tr className="border">
                         <th>S.No</th>
                         <th>image</th>
-                        <th>Brand</th>
-                        <th>Product Name</th>
-                        <th>Price</th>
-                        <th>Edit</th>
+                        <th>Email</th>
+                        <th>Role</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {
-                        productions.map((product, index) => <tr
-                            key={product._id}
-                            className=""
+                        users.map((user, index) => <AllUsers
+                            key={user._id}
+                            user={user}
+                            index={index}
+                            refetch={refetch}
                         >
-                            <td>{index + 1}</td>
-                            <td><img className='w-16 mx-auto rounded-lg' src={product?.picture} alt="" /></td>
-                            <td>{product?.name}</td>
-
-                            <td>{product?.company}</td>
-                            <td>{product?.price}</td>
-                            <td><button className='btn btn-sm bg-green-500 text-black hover:text-white'>Edit</button></td>
-                            <td><button className='btn btn-sm bg-warning text-black hover:text-white'>Delete</button></td>
-                        </tr>)
+                        </AllUsers>)
                     }
 
 

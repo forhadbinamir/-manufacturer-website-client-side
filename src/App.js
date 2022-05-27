@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import AddService from "./Pages/Dashboard/AddService";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import ManageUsers from "./Pages/Dashboard/ManageUsers";
 import MyOrders from "./Pages/Dashboard/MyOrders";
@@ -34,7 +35,7 @@ function App() {
           <Route path="orders" element={<MyOrders></MyOrders>}></Route>
           <Route path="reviews" element={<MyReviews></MyReviews>}></Route>
           <Route path="portfolio" element={<MyPortfolio></MyPortfolio>}></Route>
-          <Route path="addservice" element={<MyPortfolio></MyPortfolio>}></Route>
+          <Route path="addservice" element={<AddService></AddService>}></Route>
           <Route path="payment/:id" element={<Payment></Payment>}></Route>
         </Route>
 
