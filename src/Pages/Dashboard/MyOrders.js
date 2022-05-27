@@ -73,16 +73,18 @@ const MyOrders = () => {
                         </tr>
                     </thead>
 
-                    {
-                        myOrders.map((supplier, index) => <ModalOrder
-                            key={supplier._id}
-                            supplier={supplier}
-                            index={index}
-                            handleDeleteOrder={handleDeleteOrder}
-                        ></ModalOrder>
+                    <tbody>
+                        {
+                            myOrders.map((supplier, index) => <ModalOrder
+                                key={supplier._id}
+                                supplier={supplier}
+                                index={index}
+                                handleDeleteOrder={handleDeleteOrder}
+                            ></ModalOrder>
 
-                        )
-                    }
+                            )
+                        }
+                    </tbody>
 
                 </table>
 

@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaUserAlt } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { BsGoogle } from "react-icons/bs";
 import { MdEmail } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../Firebase.init';
 import Loading from '../Hooks/Loading';
 import useToken from '../Hooks/useToken';
@@ -13,7 +13,6 @@ import { toast } from 'react-toastify';
 const Register = () => {
     const location = useLocation()
     const navigate = useNavigate()
-
     const [
         createUserWithEmailAndPassword,
         user,
@@ -21,11 +20,14 @@ const Register = () => {
         error,
     ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+
     const [token] = useToken(user || googleUser)
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async (data) => {
         await createUserWithEmailAndPassword(data.email, data.password)
+        await updateProfile({ displayName: data.name })
         toast('send verify email')
         console.log(data)
     };

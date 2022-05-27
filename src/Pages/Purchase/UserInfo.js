@@ -10,7 +10,6 @@ const UserInfo = () => {
     const [user] = useAuthState(auth)
     const [products, setProductions] = useState({})
     const [count, setCount] = useState({ minimum: '20', })
-    const [orderBtn, setOrderBtn] = useState(false)
     useEffect(() => {
         fetch(`http://localhost:5001/production/${id}`, {
             headers: {
@@ -206,7 +205,7 @@ const UserInfo = () => {
                                 <input className='mb-2 p-3 border rounded-lg  w-full' name='phone' type="text" placeholder='Phone' />
                             </div>
 
-                            <input disabled={!products.minimum <= 20 ? false : true} className='w-full bg-purple-600 rounded-lg p-3 text-white font-bold uppercase' type="submit" value="Order" />
+                            <input className='w-full bg-purple-600 rounded-lg p-3 text-white font-bold uppercase' type="submit" value="Order" />
                         </form>
                         <button className='btn btn-link'><Link to='/dashboard/orders'>Go to Order List</Link></button>
                     </div>
