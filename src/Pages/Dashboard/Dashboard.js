@@ -19,6 +19,7 @@ const Dashboard = () => {
                         <li className='hover:translate-x-2 duration-300'><Link to='/dashboard/orders'>My Orders </Link></li>
                         <li className='hover:translate-x-2 duration-300'><Link to='/dashboard/reviews'>My Reviews </Link></li>
                         <li className='hover:translate-x-2 duration-300'><Link to='/dashboard/portfolio'>My Portfolio </Link></li>
+                        <li className='hover:translate-x-2 duration-300'><Link to='/dashboard/addservice'>Add Service </Link></li>
 
                     </ul>
 
