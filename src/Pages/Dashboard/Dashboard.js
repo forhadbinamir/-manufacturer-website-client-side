@@ -22,6 +22,7 @@ const Dashboard = () => {
                         {/* <!-- Sidebar content here --> */}
                         <li className='hover:translate-x-2 duration-300'><Link to='/dashboard'>Portfolio </Link></li>
                         <li className='hover:translate-x-2 duration-300'>{admin && <Link to='/dashboard/manageuser'>Manage Users </Link>}</li>
+                        <li className='hover:translate-x-2 duration-300'>{admin && <Link to='/dashboard/allorders'>All Orders </Link>}</li>
                         <li className='hover:translate-x-2 duration-300'><Link to='/dashboard/orders'>My Orders </Link></li>
                         <li className='hover:translate-x-2 duration-300'><Link to='/dashboard/reviews'>My Reviews </Link></li>
 
