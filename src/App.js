@@ -9,6 +9,7 @@ import MyPortfolio from "./Pages/Dashboard/MyPortfolio";
 import MyReviews from "./Pages/Dashboard/MyReviews";
 import Payment from "./Pages/Dashboard/Payment";
 import Home from "./Pages/Home/Home";
+import RequireAdmin from "./Pages/Hooks/RequireAdmin";
 import RequireAuth from "./Pages/Hooks/RequireAuth";
 import Login from "./Pages/Login/Login";
 import NotFound from "./Pages/NotFound/NotFound";
@@ -31,10 +32,10 @@ function App() {
             <Dashboard></Dashboard>
           </RequireAuth>}
         >
-          <Route index element={<ManageUsers></ManageUsers>}></Route>
+          <Route index element={<MyPortfolio></MyPortfolio>}></Route>
+          <Route path="manageuser" element={<RequireAdmin><ManageUsers></ManageUsers></RequireAdmin>}></Route>
           <Route path="orders" element={<MyOrders></MyOrders>}></Route>
           <Route path="reviews" element={<MyReviews></MyReviews>}></Route>
-          <Route path="portfolio" element={<MyPortfolio></MyPortfolio>}></Route>
           <Route path="addservice" element={<AddService></AddService>}></Route>
           <Route path="payment/:id" element={<Payment></Payment>}></Route>
         </Route>

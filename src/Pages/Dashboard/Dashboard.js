@@ -20,10 +20,11 @@ const Dashboard = () => {
                     <label htmlFor="dashboard" className="drawer-overlay"></label>
                     <ul className="menu p-4 overflow-y-auto w-60 bg-white text-base-content">
                         {/* <!-- Sidebar content here --> */}
-                        <li className='hover:translate-x-2 duration-300'>{admin && <Link to='/dashboard'>Manage Users </Link>}</li>
+                        <li className='hover:translate-x-2 duration-300'><Link to='/dashboard'>Portfolio </Link></li>
+                        <li className='hover:translate-x-2 duration-300'>{admin && <Link to='/dashboard/manageuser'>Manage Users </Link>}</li>
                         <li className='hover:translate-x-2 duration-300'><Link to='/dashboard/orders'>My Orders </Link></li>
                         <li className='hover:translate-x-2 duration-300'><Link to='/dashboard/reviews'>My Reviews </Link></li>
-                        <li className='hover:translate-x-2 duration-300'><Link to='/dashboard/portfolio'>My Portfolio </Link></li>
+
                         <li className='hover:translate-x-2 duration-300'><Link to='/dashboard/addservice'>Add Service </Link></li>
 
                     </ul>
