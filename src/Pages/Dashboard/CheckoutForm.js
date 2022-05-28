@@ -6,16 +6,18 @@ const CheckoutForm = ({ orders }) => {
     const elements = useElements();
     const [cardError, setCardError] = useState('')
     const [success, setSuccess] = useState('')
+    const [processing, setProcessing] = useState(false)
+    const [transactionId, setTransactionId] = useState('')
     const [clientSecret, setClientSecret] = useState('')
-    const { price, productName, email } = orders
+    const { _id, price, productName, email } = orders
     useEffect(() => {
         fetch('http://localhost:5001/create-payment-intent', {
             method: "POST",
             headers: {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
-                }
-            }
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify({ price })
         })
             .then(res => res.json())
             .then(data => {
@@ -48,6 +50,7 @@ const CheckoutForm = ({ orders }) => {
             console.log('[error]', error);
             setCardError(error.message)
             setSuccess('')
+            setProcessing(true)
         } else {
             console.log('[PaymentMethod]', paymentMethod);
         }
@@ -58,20 +61,40 @@ const CheckoutForm = ({ orders }) => {
                 payment_method: {
                     card: card,
                     billing_details: {
-                        name: email,
-                        productName: productName,
-                        price: price
+                        email: email,
+                        name: productName,
                     },
                 },
             },
         );
         if (intentError) {
             setCardError(intentError?.message)
-
+            setProcessing(false)
         } else {
             setCardError('')
+            setTransactionId(paymentIntent.id)
             console.log(paymentIntent)
-            setSuccess("Your payment is completed"?.message)
+            setSuccess("Your payment is completed")
+
+            const payment = {
+                yourOrder: _id,
+                transactionId: paymentIntent.id
+            }
+            //payment store in database
+            fetch(`http://localhost:5001/myorder/${_id}`, {
+                method: "PATCH",
+                headers: {
+                    'content-type': 'application/json',
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                },
+                body: JSON.stringify(payment)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setProcessing(false)
+                    console.log(data)
+
+                })
         }
     }
     return (
@@ -93,7 +116,7 @@ const CheckoutForm = ({ orders }) => {
                         },
                     }}
                 />
-                <button type="submit" disabled={!stripe || !clientSecret}>
+                <button className='btn btn-xs mt-3' type="submit" disabled={!stripe || !clientSecret}>
                     Pay
                 </button>
             </form>
@@ -101,7 +124,10 @@ const CheckoutForm = ({ orders }) => {
                 cardError && <p className='text-red-500'>{cardError}</p>
             }
             {
-                success && <p className='text-green-500'>{success}</p>
+                success && <div className='text-green-500'>
+                    <p>{success}</p>
+                    <p className='text-orange-500 font-bold'>Your Transaction Id: {transactionId}</p>
+                </div>
             }
         </div>
     );
