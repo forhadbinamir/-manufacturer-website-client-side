@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 const AllUsers = ({ user, index, refetch }) => {
     const { email, role, _id } = user
     const makeAdmin = () => {
-        fetch(`http://localhost:5001/user/admin/${email}`, {
+        fetch(`https://immense-earth-45924.herokuapp.com/user/admin/${email}`, {
             method: 'PUT',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -18,7 +18,7 @@ const AllUsers = ({ user, index, refetch }) => {
 
     }
     const handleDeleteUser = (id) => {
-        fetch(`http://localhost:5001/user/${id}`, {
+        fetch(`https://immense-earth-45924.herokuapp.com/user/${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`

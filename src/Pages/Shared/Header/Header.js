@@ -2,7 +2,7 @@ import { signOut } from 'firebase/auth';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
-import logo from '../../../assets/logo/manufacturer_logo.png'
+import logo from '../../../assets/logo/logo.png'
 import auth from '../../Firebase.init';
 const Header = () => {
     const [user] = useAuthState(auth)
@@ -34,7 +34,7 @@ const Header = () => {
 
                     </ul>
                 </div>
-                <Link to="/" className="btn btn-ghost normal-case text-xl w-32"><img src={logo} alt="" /></Link>
+                <Link to="/" className="btn btn-ghost normal-case text-xl w-32"><img className='w-32 h-10' src={logo} alt="" /></Link>
             </div>
             <div className="navbar-end hidden lg:flex">
                 <ul className="menu menu-horizontal  p-0">

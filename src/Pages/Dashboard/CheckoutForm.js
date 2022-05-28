@@ -11,7 +11,7 @@ const CheckoutForm = ({ orders }) => {
     const [clientSecret, setClientSecret] = useState('')
     const { _id, price, productName, email } = orders
     useEffect(() => {
-        fetch('http://localhost:5001/create-payment-intent', {
+        fetch('https://immense-earth-45924.herokuapp.com/create-payment-intent', {
             method: "POST",
             headers: {
                 'content-type': 'application/json',
@@ -81,7 +81,7 @@ const CheckoutForm = ({ orders }) => {
                 transactionId: paymentIntent.id
             }
             //payment store in database
-            fetch(`http://localhost:5001/myorder/${_id}`, {
+            fetch(`https://immense-earth-45924.herokuapp.com/myorder/${_id}`, {
                 method: "PATCH",
                 headers: {
                     'content-type': 'application/json',

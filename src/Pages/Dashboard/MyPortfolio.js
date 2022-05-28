@@ -7,7 +7,7 @@ const MyPortfolio = () => {
     const [profiles, setProfiles] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:5001/profile`, {
+        fetch(`https://immense-earth-45924.herokuapp.com/profile`, {
             method: 'GET',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -32,7 +32,7 @@ const MyPortfolio = () => {
             console.log(name, education, url, phone)
 
 
-            fetch('http://localhost:5001/profile', {
+            fetch('https://immense-earth-45924.herokuapp.com/profile', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

@@ -12,7 +12,7 @@ const MyOrders = () => {
     const [myOrders, setMyOrders] = useState([])
     useEffect(() => {
         const email = user.email
-        const url = `http://localhost:5001/myorder?email=${email}`
+        const url = `https://immense-earth-45924.herokuapp.com/myorder?email=${email}`
         try {
             fetch(url, {
                 method: 'GET',
@@ -38,7 +38,7 @@ const MyOrders = () => {
     const handleDeleteOrder = id => {
 
 
-        fetch(`http://localhost:5001/myorder/${id}`, {
+        fetch(`https://immense-earth-45924.herokuapp.com/myorder/${id}`, {
             method: "DELETE",
             headers: {
                 headers: {

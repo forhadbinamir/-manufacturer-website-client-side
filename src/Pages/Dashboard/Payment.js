@@ -8,7 +8,7 @@ const Payment = () => {
     const { paymentId } = useParams()
     const [orders, setOrders] = useState({})
     useEffect(() => {
-        const url = `http://localhost:5001/myorder/${paymentId}`
+        const url = `https://immense-earth-45924.herokuapp.com/myorder/${paymentId}`
         fetch(url, {
             method: 'GET',
             headers: {

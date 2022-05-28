@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 const AllOrders = () => {
     const [allOrders, setAllOrders] = useState([])
     useEffect(() => {
-        fetch('http://localhost:5001/allorder', {
+        fetch('https://immense-earth-45924.herokuapp.com/allorder', {
             method: 'GET',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`

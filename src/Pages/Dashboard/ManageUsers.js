@@ -6,7 +6,7 @@ import AllUsers from './AllUsers';
 
 const ManageUsers = () => {
     const navigate = useNavigate()
-    const { data: users, isLoading, refetch } = useQuery('user', () => fetch(`http://localhost:5001/user`, {
+    const { data: users, isLoading, refetch } = useQuery('user', () => fetch(`https://immense-earth-45924.herokuapp.com/user`, {
         method: 'GET',
         headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`

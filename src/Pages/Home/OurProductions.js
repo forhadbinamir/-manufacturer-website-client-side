@@ -5,7 +5,7 @@ const OurProductions = () => {
 
     const [productions, setProductions] = useState([])
     useEffect(() => {
-        fetch('http://localhost:5001/production')
+        fetch('https://immense-earth-45924.herokuapp.com/production')
             .then(res => res.json())
             .then(data => {
                 setProductions(data)

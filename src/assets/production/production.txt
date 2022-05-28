@@ -1,0 +1,22 @@
+https://manufacturer.stylemixthemes.com/industrial/wp-content/uploads/sites/2/2018/08/Fotolia_53197663_Subscription_Monthly_M.jpg
+https://manufacturer.stylemixthemes.com/industrial/wp-content/uploads/sites/2/2018/08/Fotolia_6014662_Subscription_Monthly_M.jpg
+https://manufacturer.stylemixthemes.com/industrial/wp-content/uploads/sites/2/2018/08/Fotolia_68431323_Subscription_Monthly_M.jpg
+https://manufacturer.stylemixthemes.com/industrial/wp-content/uploads/sites/2/2018/08/Fotolia_98574689_Subscription_Monthly_M.jpg
+https://manufacturer.stylemixthemes.com/industrial/wp-content/uploads/sites/2/2018/08/Fotolia_132560758_Subscription_Monthly_M.jpg
+https://manufacturer.stylemixthemes.com/industrial/wp-content/uploads/sites/2/2018/08/Fotolia_187730030_Subscription_Monthly_M.jpg
+
+
+https://i.ibb.co/30DsJmn/Fotolia-6014662-Subscription-Monthly-M.jpg
+https://i.ibb.co/njKpFLP/Fotolia-53197663-Subscription-Monthly-M.jpg
+https://i.ibb.co/0yRDY6f/Fotolia-68431323-Subscription-Monthly-M.jpg
+https://i.ibb.co/D5r0FYF/Fotolia-98574689-Subscription-Monthly-M.jpg
+https://i.ibb.co/wCQm6rv/Fotolia-132560758-Subscription-Monthly-M.jpg
+https://i.ibb.co/QjYrGZ3/Fotolia-187730030-Subscription-Monthly-M.jpg
+
+আপনাদের অনেকেই এসাইনমেন্ট এর ৪ এবং ৫ নং রিকোয়ারমেন্টস নিয়ে নানাবিধ কনফিউশন এ ভুগছেন ! এই কনফিউশনগুলো ক্লিয়ার করতেই এই পোস্ট ! আশা করি আর সমস্যা হবে না ! আর কোন কনফিউশন থাকলে এই পোস্টের নিচে কমেন্ট করে দিন।
+Purchase Page অবশ্যই Protected থাকবে। ধুম করে কেউ লগিন ছাড়া Purchase Page এ চলে গিয়ে Purchase করতে পারবে না । যদি লগিন করা না থাকে সেক্ষেত্রে আমাকে Redirect করে লগিনে নিয়ে যেতে হবে ।
+এই পেইজে লগিন থাকা অবস্থায় যদি কেউ রিলোড করে তাহলে তাকে লগিন পেইজে আর নিয়ে যাওয়া যাবে না । এই সমস্যা আপনাদের ফিক্স করতে হবে ।
+Purchase Page এ ক্লিক করলে আইটেমটির ডিটেইলস ইনফরমেশন [নাম, ডেস্ক্রিস্পশন , কয়টি স্টকে আছে , মিনিমাম কত অর্ডার করতে হবে ইত্যাদি নিজের মত চিন্তা করে করুন আর কি দেখানো যায় ] দেখাতে হবে । এটি টপ এ বলতে বোঝানো হয়েছে এই পেইজে এমনভাবে রাখবেন যাতে সহজেই চোখে পড়ে । যাতে এই কোণায় ওই কোণায় ,মাথা ৭০ degree/110 degree ঘুড়িয়ে দেখতে না হয়।
+এবং ইউজার name , email , address, phone number, and other necessary information দেখাতে হবে ।
+ইউজার চাইলে আইটেমের Quantity কমাতে / বাড়াতে পারবে। এখানে লজিক দিয়ে চিন্তা করতে হবে । আপনাকে একটা input box রাখতে হবে যে বক্স এর initial/default value থাকবে ওই আইটেমের Minimum Quantity । যদি কোন ইউজার Input Box এর ভ্যালু Minimum Quantity থেকে কমায় এবং Purchase Button এ ক্লিক করে তাহলে ইউজারকে একটি এরর মেসেজ শো করতে হবে যে এর Minimum Quantity আপনার এত মানে সেই আইটেমের minimum নিতে হবে এবং Puchase Button টি disable হয়ে যাবে যাতে ইউজার আর ক্লিক করতে না পারে । আবার একি জিনিস Maximum Quantity এর ক্ষেত্রে , কেউ সেই আইটেমের Available Quantity এর চেয়ে বেশি Purchase করতে পারবে না । করতে চাইলে তাকে একটি এরর মেসেজ দিইয়ে বলবে যে এত এর বেশি Purchase করতে পারবে না। তাহলে এখানে আপনাকে দুটি জিনিস চেক করে কাজটি করতে হবে
+Example: ধরেন একজন ইউজার Potato Chips Purchase করবে । আপনি এই আইটেমের Minimum Quantity সেট করে দিলেন ১৫ এবং Avaialble Stock আছে ধরেন ১১০ । তাহলে ইউজার এর জন্য Input Box এর Default Value দেখাবে ১৫ । এখন সে কমিয়ে ১৪/১৩/১২ করল এবং এই Purchase Button এ ক্লিক করলে ইউজার কে মেসেজ দেখাবে “You have to purchase at least 15 products”.এবং Purchase Button Disable হয়ে যাবে । সেইম জিনিসটাই হবে Maximum এর ক্ষেত্রে।

@@ -19,7 +19,7 @@ const AddService = () => {
             quantity: quantity,
             minimum: minimum
         }
-        fetch(`http://localhost:5001/production`, {
+        fetch(`https://immense-earth-45924.herokuapp.com/production`, {
             method: 'POST',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`,

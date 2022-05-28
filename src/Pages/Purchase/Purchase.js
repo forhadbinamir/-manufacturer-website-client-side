@@ -6,7 +6,7 @@ const Purchase = () => {
     const [production, setProductions] = useState({})
 
     useEffect(() => {
-        fetch(`http://localhost:5001/production/${id}`)
+        fetch(`https://immense-earth-45924.herokuapp.com/production/${id}`)
             .then(res => res.json())
             .then(data => {
                 setProductions(data)

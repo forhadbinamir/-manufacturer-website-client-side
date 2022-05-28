@@ -9,7 +9,7 @@ const UserInfo = () => {
     const [products, setProductions] = useState({})
     const [count, setCount] = useState({ minimum: '20', })
     useEffect(() => {
-        fetch(`http://localhost:5001/production/${id}`, {
+        fetch(`https://immense-earth-45924.herokuapp.com/production/${id}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`
             }
@@ -51,7 +51,7 @@ const UserInfo = () => {
                 phone: event.target.phone.value
             }
 
-            fetch(`http://localhost:5001/orders/${user.email}`, {
+            fetch(`https://immense-earth-45924.herokuapp.com/orders/${user.email}`, {
                 method: 'POST',
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -64,7 +64,7 @@ const UserInfo = () => {
                     if (data.acknowledged) {
                         const newQuantity = event.target.quantity.value
                         const updateQuantity = parseInt(products.quantity) - parseInt(newQuantity)
-                        fetch(`http://localhost:5001/update/${products._id}`, {
+                        fetch(`https://immense-earth-45924.herokuapp.com/update/${products._id}`, {
                             method: 'PATCH',
                             headers: {
                                 "content-type": "application/json"
@@ -84,7 +84,7 @@ const UserInfo = () => {
                                         myOrder: newQuantity,
                                         phone: event.target.phone.value
                                     }
-                                    fetch('http://localhost:5001/myorder', {
+                                    fetch('https://immense-earth-45924.herokuapp.com/myorder', {
                                         method: 'POST',
                                         headers: {
                                             'content-type': 'application/json'
@@ -115,7 +115,7 @@ const UserInfo = () => {
             // console.log(quantity)
             event.target.reset()
 
-            fetch(`http://localhost:5001/update/${id}`, {
+            fetch(`https://immense-earth-45924.herokuapp.com/update/${id}`, {
                 method: 'PUT',
                 headers: {
                     "content-type": 'application/json'
