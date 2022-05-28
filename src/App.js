@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Blogs from "./Pages/Blogs/Blogs";
 import AddService from "./Pages/Dashboard/AddService";
 import AllOrders from "./Pages/Dashboard/AllOrders";
 import Dashboard from "./Pages/Dashboard/Dashboard";
@@ -14,6 +15,7 @@ import RequireAdmin from "./Pages/Hooks/RequireAdmin";
 import RequireAuth from "./Pages/Hooks/RequireAuth";
 import Login from "./Pages/Login/Login";
 import NotFound from "./Pages/NotFound/NotFound";
+import Portfolio from "./Pages/Portfolio/Portfolio";
 import Purchase from "./Pages/Purchase/Purchase";
 import UserInfo from "./Pages/Purchase/UserInfo";
 import Register from "./Pages/Register/Register";
@@ -39,7 +41,7 @@ function App() {
           <Route path="orders" element={<MyOrders></MyOrders>}></Route>
           <Route path="reviews" element={<MyReviews></MyReviews>}></Route>
           <Route path="addservice" element={<AddService></AddService>}></Route>
-          <Route path="payment/:id" element={<Payment></Payment>}></Route>
+          <Route path="payment/:paymentId" element={<Payment></Payment>}></Route>
         </Route>
 
         <Route path='/purchase/:id' element={<RequireAuth>
@@ -48,6 +50,8 @@ function App() {
         <Route path='/userinfo/:id' element={<RequireAuth>
           <UserInfo></UserInfo>
         </RequireAuth>}></Route>
+        <Route path='/blog' element={<Blogs></Blogs>}></Route>
+        <Route path='/portfolio' element={<Portfolio></Portfolio>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/register' element={<Register></Register>}></Route>
         <Route path='*' element={<NotFound></NotFound>}></Route>

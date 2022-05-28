@@ -2,7 +2,7 @@ import React from 'react';
 import bgbanner from '../../assets/banner/slide.jpg'
 const Banner = () => {
     return (
-        <div style={{ backgroundImage: `url(${bgbanner})` }} className="hero min-h-screen">
+        <div style={{ backgroundImage: `url(${bgbanner})`, backgroundSize: "80", backgroundPosition: 'right' }} className="hero min-h-screen">
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <img src="" />
                 <div>

@@ -1,26 +1,26 @@
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import React from 'react';
-import { useQuery } from 'react-query';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Loading from '../Hooks/Loading';
 import CheckoutForm from './CheckoutForm';
 const stripePromise = loadStripe('pk_test_51L1hnGIKPVQVfNhJ6NTJQGva9QNuLhQSHjpleLvgV1IzmguJfVkfIuSI0cMD6eWPscwWZZQaFrii3HxFU4twsPSn00oRmMOEqx');
 const Payment = () => {
-    const { id } = useParams()
-    const url = `http://localhost:5001/myorder/${id}`
-    const { data: orders, isLoading } = useQuery('myorder', () => fetch(url, {
+    const { paymentId } = useParams()
+    const [orders, setOrders] = useState({})
+    const url = `http://localhost:5001/myorder/${paymentId}`
+    fetch(url, {
         method: 'GET',
         headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
         }
     })
         .then(res => res.json())
-    )
-    console.log(orders)
-    if (isLoading) {
-        <Loading />
-    }
+        .then(data => {
+            setOrders(data)
+            console.log(data)
+        })
+
+
 
     return (
         <>

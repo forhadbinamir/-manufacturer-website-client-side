@@ -12,9 +12,9 @@ const Header = () => {
 
     const menuItem = <>
         <li><Link className='hover:translate-x-2 duration-300' to='/home'>Home</Link></li>
-        <li><Link className='hover:translate-x-2 duration-300' to='/review'>Review</Link></li>
-        <li><Link className='hover:translate-x-2 duration-300' to='/about'>About</Link></li>
-        <li><Link className='hover:translate-x-2 duration-300' to='/contact'>Contact</Link></li>
+        <li><Link className='hover:translate-x-2 duration-300' to='/blog'>Blogs</Link></li>
+        <li><Link className='hover:translate-x-2 duration-300' to='/portfolio'>Portfolio</Link></li>
+        {/* <li><Link className='hover:translate-x-2 duration-300' to='/contact'>Contact</Link></li> */}
         {
             user && <li><Link className='hover:translate-x-2 duration-300' to='/dashboard'>Dashboard</Link></li>
         }

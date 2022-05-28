@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, useParams } from 'react-router-dom';
 import auth from '../Firebase.init';
-import { AiOutlinePlus } from 'react-icons/ai'
-import { AiOutlineMinus } from 'react-icons/ai'
 import { toast } from 'react-toastify';
 const UserInfo = () => {
     const { id } = useParams()
@@ -34,16 +32,20 @@ const UserInfo = () => {
         }
 
     }
+
     const handleOrderDeliver = event => {
         event.preventDefault()
         if (!products.quantity > 0) {
             return toast.error('Your products  stock is zero ')
         } else {
+            const mainQuantity = parseInt(products.quantity)
+            const mainPrice = parseInt(products.price)
+            const istoPrice = mainPrice * mainQuantity
             const orderInfo = {
                 name: user.name,
                 email: user.email,
                 productName: products.name,
-                price: products.price,
+                price: istoPrice,
                 minimum: products.minimum,
                 quantity: products.quantity,
                 phone: event.target.phone.value
@@ -101,11 +103,12 @@ const UserInfo = () => {
         }
     }
 
-    const handlePlusQuantity = (event) => {
+    const handleQuantity = (event) => {
         event.preventDefault()
         if (!event.target.quantity.value > 0 && event.target.quantity.value === "") {
             return toast.warning('Put some value of quantity')
-        } else {
+        }
+        else {
             const previousQuantity = parseInt(products.quantity)
             const newQuantity = parseInt(event.target.quantity.value)
             const updateQuantity = newQuantity + previousQuantity
@@ -128,34 +131,6 @@ const UserInfo = () => {
                 })
         }
 
-    }
-
-    const handleMinusQuantity = event => {
-        event.preventDefault()
-        if (!event.target.quantity.value > 0 && event.target.quantity.value === "") {
-            return toast.warning('Put some eligible value')
-        } else {
-            const previousQuantity = parseInt(products.quantity)
-            const newQuantity = parseInt(event.target.quantity.value)
-            const updateQuantity = previousQuantity - newQuantity
-            event.target.reset()
-
-            fetch(`http://localhost:5001/update/${id}`, {
-                method: 'PUT',
-                headers: {
-                    "content-type": 'application/json'
-                },
-                body: JSON.stringify({ quantity: updateQuantity })
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data)
-                    if (data.matchedCount === 1) {
-                        toast.success('Your Product is now changed successfully')
-                    }
-
-                })
-        }
     }
     return (
         <div className='flex justify-evenly items-center'>
@@ -213,16 +188,16 @@ const UserInfo = () => {
             </div>
             <div className='bg-accent rounded p-20'>
                 <h2 className='text-2xl font-bold text-white text-center pb-5'>Edit Quantity</h2>
-                <form onSubmit={handlePlusQuantity} className='flex mb-2' >
+                <form onSubmit={handleQuantity} className='flex mb-2' >
                     <input className='p-2  outline-none ' type="text" name='quantity' />
-                    <button className='text-white p-3 bg-purple-600 uppercase font-bold '><AiOutlinePlus /></button>
+                    <button className='text-white p-3 bg-purple-600 uppercase font-bold '>add</button>
                 </form>
 
 
-                <form onSubmit={handleMinusQuantity} className='flex' >
+                {/* <form onSubmit={handleMinusQuantity} className='flex' >
                     <input className='p-2  outline-none ' type="text" name='quantity' />
                     <button className='text-white p-3 bg-purple-600 uppercase font-bold '><AiOutlineMinus /></button>
-                </form>
+                </form> */}
             </div>
         </div>
     );
