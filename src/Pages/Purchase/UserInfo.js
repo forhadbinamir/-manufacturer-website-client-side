@@ -40,14 +40,14 @@ const UserInfo = () => {
         } else {
             const mainQuantity = parseInt(products.quantity)
             const mainPrice = parseInt(products.price)
-            const istoPrice = mainPrice * mainQuantity
+            const istoPrice = parseInt(mainPrice * mainQuantity)
             const orderInfo = {
                 name: user.name,
                 email: user.email,
                 productName: products.name,
                 price: istoPrice,
                 minimum: products.minimum,
-                quantity: products.quantity,
+                quantity: parseInt(products.quantity),
                 phone: event.target.phone.value
             }
 

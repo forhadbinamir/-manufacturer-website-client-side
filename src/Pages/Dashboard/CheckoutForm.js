@@ -6,26 +6,30 @@ const CheckoutForm = ({ orders }) => {
     const elements = useElements();
     const [cardError, setCardError] = useState('')
     const [success, setSuccess] = useState('')
-    const [processing, setProcessing] = useState(false)
     const [transactionId, setTransactionId] = useState('')
     const [clientSecret, setClientSecret] = useState('')
     const { _id, price, productName, email } = orders
+    console.log("beff", price)
     useEffect(() => {
-        fetch('https://immense-earth-45924.herokuapp.com/create-payment-intent', {
-            method: "POST",
-            headers: {
-                'content-type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('accessToken')}`
-            },
-            body: JSON.stringify({ price })
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data?.clientSecret) {
-                    setClientSecret(data.clientSecret)
-                }
-                console.log(data)
+        if (price) {
+            console.log("after if", price)
+            fetch('https://immense-earth-45924.herokuapp.com/create-payment-intent', {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                },
+                body: JSON.stringify({ price })
             })
+                .then(res => res.json())
+                .then(data => {
+                    if (data?.clientSecret) {
+                        setClientSecret(data.clientSecret)
+                    }
+                    console.log(data)
+                })
+        }
+
     }, [price])
     const handleSubmit = async (event) => {
 
@@ -50,7 +54,6 @@ const CheckoutForm = ({ orders }) => {
             console.log('[error]', error);
             setCardError(error.message)
             setSuccess('')
-            setProcessing(true)
         } else {
             console.log('[PaymentMethod]', paymentMethod);
         }
@@ -69,7 +72,6 @@ const CheckoutForm = ({ orders }) => {
         );
         if (intentError) {
             setCardError(intentError?.message)
-            setProcessing(false)
         } else {
             setCardError('')
             setTransactionId(paymentIntent.id)
@@ -91,7 +93,6 @@ const CheckoutForm = ({ orders }) => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    setProcessing(false)
                     console.log(data)
 
                 })
